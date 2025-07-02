@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Math Game - 20 Levels</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    #game {
+      background: #fff;
+      display: inline-block;
+      padding: 30px 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      max-width: 400px;
+      width: 100%;
+    }
+
+    input {
+      padding: 12px;
+      width: 80%;
+      font-size: 1.2em;
+      margin-bottom: 10px;
+    }
+
+    button {
+      padding: 12px 20px;
+      background: #004080;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin: 10px 5px;
+      width: 80%;
+      max-width: 250px;
+      font-size: 1em;
+    }
+
+    #result {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="game">
+    <h1>🧮 Math Quiz Game</h1>
+    <h2 id="level">Level 1</h2>
+    <p id="question"></p>
+    <input type="number" id="answer" placeholder="Your answer" />
+    <br>
+    <button onclick="checkAnswer()">Submit</button>
+    <p id="result"></p>
+    <p>Score: <span id="score">0</span></p>
+    <button onclick="nextLevel()">Next Level</button>
+  </div>
+
+  <script>
+    let level = 1;
+    let score = 0;
+    let correctAnswer = 0;
+
+    function generateQuestion() {
+      let num1, num2;
+      if (level >= 1 && level <= 5) {
+        num1 = Math.floor(Math.random() * 20) + 1;
+        num2 = Math.floor(Math.random() * 20) + 1;
+        if (Math.random() > 0.5) {
+          correctAnswer = num1 + num2;
+          document.getElementById('question').innerText = `What is ${num1} + ${num2}?`;
+        } else {
+          correctAnswer = num1 - num2;
+          document.getElementById('question').innerText = `What is ${num1} − ${num2}?`;
+        }
+      } else if (level >= 6 && level <= 10) {
+        num1 = Math.floor(Math.random() * 12) + 1;
+        num2 = Math.floor(Math.random() * 12) + 1;
+        if (Math.random() > 0.5) {
+          correctAnswer = num1 * num2;
+          document.getElementById('question').innerText = `What is ${num1} × ${num2}?`;
+        } else {
+          correctAnswer = Math.floor(num1 * num2 / num1);
+          document.getElementById('question').innerText = `What is ${num1 * num2} ÷ ${num1}?`;
+        }
+      } else if (level >= 11 && level <= 15) {
+        num1 = Math.floor(Math.random() * 30) + 1;
+        num2 = Math.floor(Math.random() * 10) + 1;
+        const op = Math.random();
+        if (op < 0.33) {
+          correctAnswer = num1 + num2;
+          document.getElementById('question').innerText = `What is ${num1} + ${num2}?`;
+        } else if (op < 0.66) {
+          correctAnswer = num1 - num2;
+          document.getElementById('question').innerText = `What is ${num1} − ${num2}?`;
+        } else {
+          correctAnswer = num1 * num2;
+          document.getElementById('question').innerText = `What is ${num1} × ${num2}?`;
+        }
+      } else if (level >= 16 && level <= 20) {
+        num2 = Math.floor(Math.random() * 10) + 1;
+        correctAnswer = Math.floor(Math.random() * 20) + 1;
+        num1 = correctAnswer + num2;
+        document.getElementById('question').innerText = `Solve for x: x + ${num2} = ${num1}`;
+      }
+    }
+
+    function checkAnswer() {
+      const userAnswer = parseInt(document.getElementById('answer').value);
+      if (userAnswer === correctAnswer) {
+        score++;
+        document.getElementById('result').innerText = '✅ Correct!';
+      } else {
+        document.getElementById('result').innerText = `❌ Wrong! The answer was ${correctAnswer}.`;
+      }
+      document.getElementById('score').innerText = score;
+      generateQuestion();
+      document.getElementById('answer').value = '';
+    }
+
+    function nextLevel() {
+      if (level < 20) {
+        level++;
+        document.getElementById('level').innerText = `Level ${level}`;
+        generateQuestion();
+      } else {
+        alert(`🎉 You finished all 20 levels! Final score: ${score}`);
+      }
+    }
+
+    generateQuestion();
+  </script>
+
+</body>
+</html>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Advanced Calculator Tool</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      text-align: center;
+      padding: 40px 20px;
+    }
+    h1 {
+      color: #004080;
+    }
+    #calculator {
+      background: #fff;
+      display: inline-block;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      max-width: 400px;
+      width: 100%;
+    }
+    input[type=\"number\"] {
+      width: 80px;
+      padding: 10px;
+      margin: 5px;
+      font-size: 1.2em;
+    }
+    select {
+      padding: 10px;
+      font-size: 1.2em;
+    }
+    button {
+      padding: 10px 20px;
+      background: #004080;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin: 10px;
+      font-size: 1em;
+    }
+    #result {
+      margin-top: 20px;
+      font-size: 1.3em;
+      font-weight: bold;
+    }
+    #quadInputs {
+      margin-top: 20px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🧮 Advanced Calculator</h1>
+
+  <div id="calculator">
+    <div id="basicCalc">
+      <input type="number" id="num1" placeholder="First number" />
+      <select id="operator" onchange="checkOperator()">
+        <option value="+">➕ Add</option>
+        <option value="-">➖ Subtract</option>
+        <option value="*">✖️ Multiply</option>
+        <option value="/">➗ Divide</option>
+        <option value="^">xʸ Exponent</option>
+        <option value="√">√ Square Root</option>
+        <option value="quad">Quadratic Solver</option>
+      </select>
+      <input type="number" id="num2" placeholder="Second number" />
+    </div>
+
+    <div id="quadInputs">
+      <p>ax² + bx + c = 0</p>
+      <input type="number" id="a" placeholder="a" />
+      <input type="number" id="b" placeholder="b" />
+      <input type="number" id="c" placeholder="c" />
+    </div>
+
+    <br>
+    <button onclick="calculate()">Calculate</button>
+
+    <div id="result"></div>
+  </div>
+
+  <script>
+    function checkOperator() {
+      const op = document.getElementById('operator').value;
+      if (op === 'quad') {
+        document.getElementById('basicCalc').style.display = 'none';
+        document.getElementById('quadInputs').style.display = 'block';
+      } else {
+        document.getElementById('basicCalc').style.display = 'block';
+        document.getElementById('quadInputs').style.display = 'none';
+      }
+    }
+
+    function calculate() {
+      const op = document.getElementById('operator').value;
+      let result = '';
+
+      if (op === 'quad') {
+        const a = parseFloat(document.getElementById('a').value);
+        const b = parseFloat(document.getElementById('b').value);
+        const c = parseFloat(document.getElementById('c').value);
+
+        const discriminant = b*b - 4*a*c;
+        if (isNaN(a) || isNaN(b) || isNaN(c)) {
+          result = 'Please enter valid numbers for a, b, and c!';
+        } else if (discriminant < 0) {
+          result = 'No real solutions.';
+        } else {
+          const root1 = (-b + Math.sqrt(discriminant)) / (2*a);
+          const root2 = (-b - Math.sqrt(discriminant)) / (2*a);
+          result = `x₁ = ${root1.toFixed(2)}, x₂ = ${root2.toFixed(2)}`;
+        }
+
+      } else {
+        const num1 = parseFloat(document.getElementById('num1').value);
+        const num2 = parseFloat(document.getElementById('num2').value);
+
+        if (op === '√') {
+          if (isNaN(num1)) {
+            result = 'Please enter a number!';
+          } else {
+            result = `√${num1} = ${Math.sqrt(num1).toFixed(4)}`;
+          }
+        } else {
+          if (isNaN(num1) || isNaN(num2)) {
+            result = 'Please enter valid numbers!';
+          } else {
+            if (op === '+') result = num1 + num2;
+            else if (op === '-') result = num1 - num2;
+            else if (op === '*') result = num1 * num2;
+            else if (op === '/') {
+              if (num2 === 0) result = 'Cannot divide by zero!';
+              else result = num1 / num2;
+            }
+            else if (op === '^') result = `${num1} ^ ${num2} = ${Math.pow(num1, num2)}`;
+          }
+        }
+      }
+
+      document.getElementById('result').innerText = `Result: ${result}`;
+    }
+  </script>
+
+</body>
+</html>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Math & Science Videos</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      margin: 0;
+      padding: 40px;
+      text-align: center;
+    }
+    h1 {
+      color: #004080;
+    }
+    .video {
+      margin: 40px 0;
+    }
+  </style>
+</head>
+<body>
+
+
+
+<a href="body5.html" style="
+  display: inline-block;
+  background: #004080;
+  color: #fff;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 5px;
+  margin-top: 20px;
+">📘 Go TO MATH AND PHYSICAL SCIENCE NOTES</a>
+
+</html>
+
